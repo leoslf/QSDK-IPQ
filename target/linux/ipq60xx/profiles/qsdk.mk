@@ -1,1 +1,1 @@
-include $(TOPDIR)/qsdk-package/profiles/qsdk.mk
+-include $(TOPDIR)/qsdk-package/profiles/qsdk.mk

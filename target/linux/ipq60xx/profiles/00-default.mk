@@ -2,6 +2,7 @@
 define Profile/Default
 	NAME:=Default Profile (minimum package set)
 	PACKAGES:=
+	ARCH_PACKAGES:=ipq
 endef
 
 define Profile/Default/Description
