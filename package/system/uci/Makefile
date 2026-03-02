@@ -1,6 +1,5 @@
 #
 # Copyright (C) 2008-2014 OpenWrt.org
-# Copyright (C) 2016 LEDE project
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,14 +7,18 @@
 
 include $(TOPDIR)/rules.mk
 
+UCI_VERSION=2015-08-27
+UCI_RELEASE=1
+
 PKG_NAME:=uci
-PKG_RELEASE:=4
+PKG_VERSION:=$(UCI_VERSION)$(if $(UCI_RELEASE),.$(UCI_RELEASE))
+PKG_RELEASE:=1
+PKG_REV:=2cd94fd505b293e657278e31deb32a7d66d20714
 
 PKG_SOURCE_URL=$(PROJECT_GIT)/project/uci.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE=2019-09-01
-PKG_SOURCE_VERSION:=415f9e48436d29f612348f58f546b3ad8d74ac38
-PKG_MIRROR_HASH:=06f2801b103c359129c1675cbe5045c2cd04d756c2ab1efd2160608f34a27a8f
+PKG_SOURCE_DATE=$(UCI_VERSION)
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_LICENSE:=LGPL-2.1
 PKG_LICENSE_FILES:=
@@ -35,7 +38,6 @@ define Package/libuci
   CATEGORY:=Libraries
   TITLE:=C library for the Unified Configuration Interface (UCI)
   DEPENDS:=+libubox
-  ABI_VERSION:=20130104
 endef
 
 define Package/uci

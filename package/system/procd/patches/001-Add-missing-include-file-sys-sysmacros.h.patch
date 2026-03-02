@@ -1,0 +1,36 @@
+diff -Nur a/initd/early.c b/initd/early.c
+--- a/initd/early.c	2026-03-01 21:50:21.401342601 -0500
++++ b/initd/early.c	2026-03-01 21:48:53.918167569 -0500
+@@ -15,6 +15,8 @@
+ #include <sys/mount.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++/* Newer glibc requires sys/sysmacros.h directly for makedev() */
++#include <sys/sysmacros.h>
+ 
+ #include <stdio.h>
+ #include <fcntl.h>
+diff -Nur a/initd/mkdev.c b/initd/mkdev.c
+--- a/initd/mkdev.c	2015-11-27 11:50:24.000000000 -0500
++++ b/initd/mkdev.c	2026-03-01 21:50:33.925224588 -0500
+@@ -16,6 +16,8 @@
+ 
+ #include <sys/stat.h>
+ #include <sys/types.h>
++/* Newer glibc requires sys/sysmacros.h directly for makedev() */
++#include <sys/sysmacros.h>
+ 
+ #include <stdio.h>
+ #include <string.h>
+diff -Nur a/plug/hotplug.c b/plug/hotplug.c
+--- a/plug/hotplug.c	2015-11-27 11:50:24.000000000 -0500
++++ b/plug/hotplug.c	2026-03-01 21:50:54.197033608 -0500
+@@ -15,6 +15,8 @@
+ #include <sys/stat.h>
+ #include <sys/socket.h>
+ #include <sys/types.h>
++/* Newer glibc requires sys/sysmacros.h directly for makedev() */
++#include <sys/sysmacros.h>
+ 
+ #include <linux/types.h>
+ #include <linux/netlink.h>
