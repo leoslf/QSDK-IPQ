@@ -1,0 +1,25 @@
+diff -Nur a/explicit_bzero.c b/explicit_bzero.c
+--- a/explicit_bzero.c	1969-12-31 19:00:00.000000000 -0500
++++ b/explicit_bzero.c	2026-03-02 22:18:22.611894884 -0500
+@@ -0,0 +1,9 @@
++#define _BSD_SOURCE
++
++#include <string.h>
++
++void explicit_bzero(void *d, size_t n)
++{
++	memset(d, 0, n);
++	__asm__ __volatile__ ("" : : "r"(d) : "memory");
++}
+diff -Nur a/Makefile.in b/Makefile.in
+--- a/Makefile.in	2026-03-02 21:48:09.617187044 -0500
++++ b/Makefile.in	2026-03-02 22:22:20.833622749 -0500
+@@ -37,7 +37,7 @@
+ 		atomicio.o compat.o fake-rfc2553.o \
+ 		ltc_prng.o ecc.o ecdsa.o crypto_desc.o \
+ 		dbmalloc.o \
+-		gensignkey.o gendss.o genrsa.o
++		gensignkey.o gendss.o genrsa.o explicit_bzero.o
+ 
+ SVROBJS=svr-kex.o svr-auth.o sshpty.o \
+ 		svr-authpasswd.o svr-authpubkey.o svr-authpubkeyoptions.o svr-session.o svr-service.o \
