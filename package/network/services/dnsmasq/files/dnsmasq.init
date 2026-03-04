@@ -920,10 +920,10 @@ dnsmasq_start()
 	config_list_foreach "$cfg" "rev_server" append_rev_server
 	config_list_foreach "$cfg" "address" append_address
 	config_list_foreach "$cfg" "ipset" append_ipset
-	[ -n "$BOOT" ] || {
+	# [ -n "$BOOT" ] || {
 		config_list_foreach "$cfg" "interface" append_interface
 		config_list_foreach "$cfg" "notinterface" append_notinterface
-	}
+	# }
 	config_list_foreach "$cfg" "addnhosts" append_addnhosts
 	config_list_foreach "$cfg" "bogusnxdomain" append_bogusnxdomain
 	append_parm "$cfg" "leasefile" "--dhcp-leasefile" "/tmp/dhcp.leases"
@@ -962,10 +962,11 @@ dnsmasq_start()
 	config_get_bool noresolv "$cfg" noresolv 0
 	if [ "$noresolv" != "1" ]; then
 		config_get resolvfile "$cfg" resolvfile /tmp/resolv.conf.d/resolv.conf.auto
+		resolvdir="$(dirname "$resolvfile")"
+		mkdir -p "$resolvdir"
 		[ -n "$resolvfile" ] && [ ! -e "$resolvfile" ] && touch "$resolvfile"
 		xappend "--resolv-file=$resolvfile"
 		[ "$resolvfile" = "/tmp/resolv.conf.d/resolv.conf.auto" ] && localuse=1
-		resolvdir="$(dirname "$resolvfile")"
 	fi
 	config_get_bool localuse "$cfg" localuse "$localuse"
 
@@ -1167,8 +1168,10 @@ service_triggers()
 
 boot()
 {
-	BOOT=1
-	start "$@"
+	# BOOT=1
+	# start "$@"
+	# Will be launched through hotplug
+	return 0
 }
 
 start_service() {
@@ -1200,6 +1203,7 @@ start_service() {
 reload_service() {
 	rc_procd start_service "$@"
 	# procd_send_signal dnsmasq "$@"
+	return 0
 }
 
 stop_service() {
